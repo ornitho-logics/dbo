@@ -10,5 +10,5 @@ Installation
 ------------
 
 ``` r
-remotes::install_github("mpio-be/dbo")
+remotes::install_github("ornitho-logics/dbo")
 ```
