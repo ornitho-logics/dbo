@@ -2,18 +2,25 @@
 % Please edit documentation in R/dbio_credentials.R
 \name{my.cnf}
 \alias{my.cnf}
-\title{manage database credentials
-manage database credentials for for different hosts .}
+\title{Manage database credentials in a my.cnf file}
 \usage{
 my.cnf(delete = FALSE)
 }
 \arguments{
-\item{delete}{removes the config file (default to FALSE).}
+\item{delete}{Logical scalar. If `TRUE`, deletes the config file at
+`getOption("dbo.my.cnf")`. Defaults to `FALSE`.}
+}
+\value{
+Invisibly returns the config file path.
 }
 \description{
-manage database credentials
-manage database credentials for for different hosts .
+Create (if missing), open for editing, or delete a `my.cnf`
+containing database credential groups for different hosts.
+}
+\details{
+The location of the config file is read from `options(dbo.my.cnf)`.
 }
 \note{
-If you are also using my.cnf with cli tools that use -`-defaults-group-suffix=`, make sure that any `[name]` entry is duplicated as `[clientname]`.
+If you also use a `my.cnf` with CLI tools that support `--defaults-group-suffix`,
+ensure any `[name]` group is duplicated as `[clientname]` so both group names work.
 }

@@ -6,37 +6,40 @@
 \alias{closeCon,MariaDBConnection-method}
 \title{Connect to a database}
 \usage{
-dbcon(server = c("scidb", "scidb_replica"), db, driver = "MariaDB", ...)
+dbcon(server = c("scidb", "scidb_replica"), db, driver = "MariaDB")
 
 closeCon(con)
 
 \S4method{closeCon}{MariaDBConnection}(con)
 }
 \arguments{
-\item{server}{server name. If more server names are given they will be try out in the given order.}
+\item{server}{Character vector of server (group) names in the `my.cnf` file.
+Servers are tried in order until a connection succeeds.}
 
-\item{db}{active database name}
+\item{db}{Optional database name to `USE` after connecting.}
 
-\item{driver}{MariaDB}
-
-\item{...}{further arguments passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}}
+\item{driver}{Driver identifier. Currently supports `"MariaDB"` (default).}
 
 \item{con}{The connection object.}
+
+\item{...}{Further arguments forwarded to [DBI::dbConnect()].}
 }
 \value{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{     a connection object
-}\if{html}{\out{</div>}}
+A DBI connection object.
 }
 \description{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{\code{dbcon} returns a database connection.
-              If user and password are not given dbq looks for TODO
-}\if{html}{\out{</div>}}
+`dbcon()` creates a DBI connection. By default it tries servers in order and
+uses credentials and defaults from the `dbo` package options.
+}
+\details{
+Connection parameters are taken from:
+- `options(dbo.my.cnf)` as `default.file` (for login groups)
+- `options(dbo.tz)` as `timezone`
 }
 \note{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{      [DBI::dbConnect()] timezone and default.file (.my.cnf) are set throug options() at startup. 
-}\if{html}{\out{</div>}}
+`timezone` and `default.file` are set via `options()` (typically at package
+startup). The selected `server` entry is passed as `group`.
 }
 \seealso{
-\if{html}{\out{<div class="sourceCode">}}\preformatted{    [DBI::dbConnect()]
-}\if{html}{\out{</div>}}
+[DBI::dbConnect()], [DBI::dbDisconnect()]
 }

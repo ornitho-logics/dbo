@@ -1,9 +1,19 @@
-
-#' manage database credentials
-#' manage database credentials for for different hosts .
-#' @param delete   removes the config file (default to FALSE).
-#' @note 
-#' If you are also using my.cnf with cli tools that use -`-defaults-group-suffix=`, make sure that any `[name]` entry is duplicated as `[clientname]`. 
+#' Manage database credentials in a my.cnf file
+#'
+#' Create (if missing), open for editing, or delete a `my.cnf`
+#' containing database credential groups for different hosts.
+#'
+#' The location of the config file is read from `options(dbo.my.cnf)`.
+#'
+#' @param delete Logical scalar. If `TRUE`, deletes the config file at
+#'   `getOption("dbo.my.cnf")`. Defaults to `FALSE`.
+#'
+#' @return Invisibly returns the config file path.
+#'
+#' @note
+#' If you also use a `my.cnf` with CLI tools that support `--defaults-group-suffix`,
+#' ensure any `[name]` group is duplicated as `[clientname]` so both group names work.
+#'
 #' @export 
 #' 
 my.cnf <- function(delete = FALSE) {

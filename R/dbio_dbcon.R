@@ -1,22 +1,29 @@
-
-
 #' Connect to a database
 #'
-#' @description     \code{dbcon} returns a database connection.
-#'                   If user and password are not given dbq looks for TODO
-#' 
-#' @param server       server name. If more server names are given they will be try out in the given order.
-#' @param db           active database name
-#' @param driver       MariaDB
-#' @param ...          further arguments passed to [DBI::dbConnect()]
-#' 
+#' `dbcon()` creates a DBI connection. By default it tries servers in order and
+#' uses credentials and defaults from the `dbo` package options.
+#'
+#' Connection parameters are taken from:
+#' - `options(dbo.my.cnf)` as `default.file` (for login groups)
+#' - `options(dbo.tz)` as `timezone`
+#'
+#' @param server Character vector of server (group) names in the `my.cnf` file.
+#'   Servers are tried in order until a connection succeeds.
+#' @param db Optional database name to `USE` after connecting.
+#' @param driver Driver identifier. Currently supports `"MariaDB"` (default).
+#' @param ... Further arguments forwarded to [DBI::dbConnect()].
+#'
+#' @return A DBI connection object.
 #' @export
-#' @return          a connection object
-#' @seealso         [DBI::dbConnect()]
-#' @note           [DBI::dbConnect()] timezone and default.file (.my.cnf) are set throug options() at startup. 
-#' @md
+#'
+#' @seealso [DBI::dbConnect()], [DBI::dbDisconnect()]
+#'
+#' @note
+#' `timezone` and `default.file` are set via `options()` (typically at package
+#' startup). The selected `server` entry is passed as `group`.
+#'
 
-dbcon <- function(server = c("scidb","scidb_replica"), db , driver = "MariaDB", ...) {
+dbcon <- function(server = c("scidb","scidb_replica"), db , driver = "MariaDB") {
 
 
   if( driver ==  "MariaDB" ) {
